@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { getProducts } from "../../api/products";
+import { useSearch } from "../../context/SearchContext";
 
 export const useGetProducts = () => {
   const [data, setData] = useState([]);
-  const search = "";
+  const search = useSearch();
   const getData = async () => {
     const res = await getProducts(search);
     if (res) {
@@ -20,6 +21,10 @@ export const useGetProducts = () => {
   useEffect(() => {
     getData();
   }, [search]);
+
+  // useEffect(() => {
+  //   console.log(search)
+  // }, [search]);
 
   return [data,getData];
 };

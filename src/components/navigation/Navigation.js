@@ -1,7 +1,21 @@
 import React from "react";
 import "./main.css";
+import { useNavigate } from "react-router-dom";
+import { useUpdateSearch } from "../../context/SearchContext";
 
 const Navigation = ({ children }) => {
+  
+  const navigate=useNavigate();
+  const updateSearch=useUpdateSearch()
+
+  const handleSearch=(e)=>{
+    if(e.key==='Enter'){
+      updateSearch(e.target.value)
+    }
+  }
+  const shiftHome=()=>navigate("/");
+  const shiftCart=()=>navigate("/cart");
+  const shiftProfile=()=>navigate("/profile");
   return (
     <div className="main">
       {/* <!-- header start --> */}
@@ -9,7 +23,7 @@ const Navigation = ({ children }) => {
         {/* <!-- show left logo, right cart,profile --> */}
         {/* <!-- logo --> */}
         <div className="main-top-header">
-          <div className="main-logo" onclick="getHomePage()">
+          <div className="main-logo" onClick={shiftHome}>
             {/* <!-- <img
                 src="/assets/logos/main-logo-f.png"
                 alt="Deal"
@@ -20,15 +34,15 @@ const Navigation = ({ children }) => {
           <div className="main-nav">
             {/* <!-- search bar for large screens --> */}
             <div className="lg-search main-search">
-              <input placeholder="search" />
+              <input placeholder="search" onKeyUp={handleSearch}/>
             </div>
             {/* <!-- icons for navigation --> */}
             <div className="main-menu">
-              <div className="main-menu-item">
+              <div className="main-menu-item" onClick={shiftCart}>
                 <span className="material-icons"> shopping_cart </span>
               </div>
               {/* <!-- main-menu-selected --> */}
-              <div className="main-menu-item">
+              <div className="main-menu-item" onClick={shiftProfile}>
                 <span className="material-icons"> account_circle </span>
               </div>
             </div>
@@ -61,9 +75,9 @@ const Navigation = ({ children }) => {
         {/* <!-- name and other imortant links --> */}
         <span>Important Links</span>
         <div className="main-footer-links">
-          <span>Home</span>
-          <span>Cart</span>
-          <span>Profile</span>
+          <span onClick={shiftHome}>Home</span>
+          <span onClick={shiftCart}>Cart</span>
+          <span onClick={shiftProfile}>Profile</span>
         </div>
       </div>
       {/* <!-- footer end --> */}

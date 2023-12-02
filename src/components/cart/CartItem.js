@@ -1,25 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
+import { useUpdateCart } from "../../context/CartContext";
 
-const CartItem = ({data}) => {
+const CartItem = ({ data }) => {
+  const updateCart = useUpdateCart();
+  const updateCartItem = (e) => {
+    const item = { ...data, quantity: +e.target.value };
+    updateCart(item, "update");
+  };
+
+  const deleteCartItem = () => updateCart(data, "delete");
   return (
     <div className="d-cart-item">
       <div className="d-cart-item-img-container">
-        <img
-          src="https://i.dummyjson.com/data/products/4/thumbnail.jpg"
-          alt="imagename"
-          className="d-cart-item-img"
-        />
+        <img src={data.thumbnail} alt="imagename" className="d-cart-item-img" />
       </div>
       <div className="d-cart-item-details-container">
         <div className="d-cart-item-title" onclick="getProductPage()">
-          RATAN Women’s Georgette Flared Freesize Sharara Palazzo Pant with
-          Lining (Beige) -Free Size
+          {data.title}
         </div>
-        <span className="d-cart-item-price">₹ 800</span>
+        <span className="d-cart-item-price">₹ {data.price}</span>
         <div className="d-cart-item-qd">
           <span>Quantity : </span>
-          <input type="number" className="d-cart-item-q" value="1" />
-          <span className="material-icons"> delete </span>
+          <input
+            type="number"
+            className="d-cart-item-q"
+            value={data.quantity}
+            onChange={updateCartItem}
+          />
+          <span className="material-icons" onClick={deleteCartItem}>
+            delete
+          </span>
         </div>
       </div>
     </div>

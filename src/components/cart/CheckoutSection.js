@@ -1,12 +1,12 @@
 import React from "react";
 
-const CheckoutSection = () => {
+const CheckoutSection = ({ data }) => {
   return (
     <div className="d-cart-checkout-section">
       <div className="d-cart-heading">checkout</div>
       <div className="d-cart-checkout-subtotal">
-        <span>Total (2 items) : </span>
-        <span>₹ 2540.76</span>
+        <span>Total ({data.count} items) : </span>
+        <span>₹ {data.total}</span>
       </div>
       <button className="d-product-cb-btn">
         <span className="material-icons"> shopping_bag </span>buy now

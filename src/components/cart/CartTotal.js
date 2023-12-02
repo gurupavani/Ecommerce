@@ -4,8 +4,8 @@ const CartTotal = ({ data }) => {
   return (
     <div className="d-cart-subtotal">
       <span>Total </span>
-      <span>(2 items) : </span>
-      <span>₹ 2540.76</span>
+      <span>({data.count} items) : </span>
+      <span>₹ {data.total}</span>
     </div>
   );
 };
